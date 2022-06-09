@@ -1,8 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Model>
-	<Arrival>2022-09-24-08:30</Arrival>
-	<TravelTime>60</TravelTime>
-	<PrepTime>60</PrepTime>
-	<Delay>30</Delay>
-	<WakeTime>2022-09-24-06:00</WakeTime>
-</Model>
+<Model Arrival="2022-06-30T14:30:00+02:00" TravelTime="50" PrepTime="50" Delay="10" WakeTime="2022-06-30T12:40:00+02:00" />

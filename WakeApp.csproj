@@ -47,7 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Type\CustomString.cs" />
     <Compile Include="Type\Model.cs" />
-    <Compile Include="Type\StringIndex.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

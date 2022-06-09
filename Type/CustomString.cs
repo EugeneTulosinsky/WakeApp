@@ -8,15 +8,15 @@
 
         public const string GetValues = "Ihre gespeicherten Werte werden nun geladen, wenn vorhanden.";
 
-        public const string NotFound = "Es konnten keine Standartwerte eingelesen werden. Alle Werte werden auf Null gesetzt.";
-
         public const string ArrivalTime = "Geben Sie ihre gewünschte Ankunftszeit/ZielZeit ein (yyyy-mm-dd-hh:mm, bsp: 2022-09-24-08:30)";
 
         public const string TravelTime = "Wie lange brauchen Sie für Ihren normalen Fahrtweg? (in Minuten)";
 
         public const string PrepTime = "Wie lange brauchen Sie, um sich morgens fertigzumachen? (in Minuten)";
 
-        public const string Correct = "Wollen sie Änderungen vornehmen?";
+        public const string Correct = "Wollen sie Änderungen vornehmen? Y/N";
+
+        public const string Happy = "Sind Sie mit den eingebenen Daten zufrieden? Y/N";
 
         public const string Delay = "Wollen Sie noch zusätzliche Zeit einplanen? Y/N";
 
@@ -24,6 +24,8 @@
 
         public const string FormatError = "Eingabe kann nicht formatiert werden, falsches Format!";
 
-        public const string Continue = "Drücken sie eine beliebige Taste um fortzufahren.";
+        public const string ThankYou = "Danke für die Benutzung der WakeApp";
+
+        public const string Save = "Erfolgreich gespeichert.";
     }
 }

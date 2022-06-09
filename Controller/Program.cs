@@ -2,7 +2,6 @@
 {
     using System;
     using System.IO;
-    using System.Linq;
     using System.Xml;
     using System.Xml.Linq;
 
@@ -11,8 +10,6 @@
     public sealed class Program
     {
         private static string filePath;
-        private static char[] filterOptions = { '/', '<', '>' };
-
 
         private static void Main(string[] args)
         {
@@ -24,19 +21,15 @@
 
             Model model = LoadModel();
 
-            if (model == null)
+            Console.WriteLine($"Ankunftszeit: {model.Arrival} \nReisezeit in Minuten: {model.PrepTimeInMin} Min\nVorbereitungszeit in Minuten: {model.TravelTimeInMin} Min\nEingeplante Verzögerzungen in Minuten: {model.Delay} Min\nWakeTime: {model.WakeTime}");
+
+            if (YesOrNo(CustomString.Correct))
             {
-                Console.WriteLine(CustomString.NotFound);
-                Console.WriteLine(CustomString.Continue);
-                Console.Clear();
                 Order();
             }
-            else
-            {
-                Console.WriteLine($"Ankunftszeit: {model.Arrival} \nReisezeit in Minuten: {model.PrepTimeInMin} Min\nVorbereitungszeit in Minuten: {model.TravelTimeInMin} Min\nEingeplante Verzögerzungen in Minuten: {model.Delay} Min\nWakeTime: {model.WakeTime}");
-                Console.ReadKey();
-            }
-
+            
+            Console.WriteLine(CustomString.ThankYou);
+            Console.ReadKey();
         }
 
         private static void Order()
@@ -47,7 +40,7 @@
 
             var prepTime = GetPrepTime();
 
-            var delayNeeded = DelayNeeded();
+            var delayNeeded = YesOrNo(CustomString.Delay);
 
             if (delayNeeded)
             {
@@ -80,10 +73,12 @@
 
         private static void SaveModel(Model model)
         {
-            if (UserInputCorrect())
+            if (YesOrNo(CustomString.Happy))
             {
                 XDocument document = XDocument.Load(filePath);
-                document.Element("metadata")?.Add(
+                XElement xElement = document.Element("Model");
+
+                xElement.ReplaceWith(
                     new XElement("Model",
                         new XAttribute("Arrival", model.Arrival),
                         new XAttribute("TravelTime", model.TravelTimeInMin),
@@ -92,6 +87,11 @@
                         new XAttribute("WakeTime", model.WakeTime)));
 
                 document.Save(filePath);
+
+                Console.WriteLine(CustomString.Save);
+                Console.ReadKey();
+
+                return;
             }
 
             Console.Clear();
@@ -102,18 +102,21 @@
         {
             XmlDocument document = new XmlDocument();
             document.Load(filePath);
+            var xdoc = document.DocumentElement;
 
-            XmlElement element = document.DocumentElement;
-            var xmlData = SplitStrings(element?.InnerXml, filterOptions);
-
+            var arrival = xdoc.GetAttribute("Arrival");
+            var travel = xdoc.GetAttribute("TravelTime");
+            var prep = xdoc.GetAttribute("PrepTime");
+            var delay = xdoc.GetAttribute("Delay");
+            var wakeUp = xdoc.GetAttribute("WakeTime");
 
             Model model = new Model()
             {
-                Arrival = FormatDateTime(xmlData[1]),
-                TravelTimeInMin = ConvertStringToInt(xmlData[4]),
-                PrepTimeInMin = ConvertStringToInt(xmlData[7]),
-                Delay = ConvertStringToInt(xmlData[10]),
-                WakeTime = FormatDateTime(xmlData[13])
+                Arrival = FormatDateTime(arrival),
+                TravelTimeInMin = ConvertStringToInt(travel),
+                PrepTimeInMin = ConvertStringToInt(prep),
+                Delay = ConvertStringToInt(delay),
+                WakeTime = FormatDateTime(wakeUp)
             };
 
             return model;
@@ -164,31 +167,11 @@
             return wakeTime;
         }
 
-        private static bool UserInputCorrect()
+        private static bool YesOrNo(string nextString)
         {
             while (true)
             {
-                Console.WriteLine(CustomString.Correct);
-                var userInput = Console.ReadLine();
-
-                switch (userInput)
-                {
-                    case "Y":
-                        return true;
-                    case "N":
-                        return false;
-                    default:
-                        Console.WriteLine("Error: Wrong Input. Try Again");
-                        break;
-                }
-            }
-        }
-
-        private static bool DelayNeeded()
-        {
-            while (true)
-            {
-                Console.WriteLine(CustomString.Delay);
+                Console.WriteLine(nextString);
                 var userInput = Console.ReadLine();
 
                 switch (userInput)
@@ -210,7 +193,7 @@
 
             try
             {
-                formatedDate = Convert.ToDateTime(dateTimeString);
+                formatedDate = Convert.ToDateTime(dateTimeString).ToLocalTime();
                 return formatedDate;
             }
             catch (FormatException)
@@ -231,12 +214,6 @@
                 Console.WriteLine(CustomString.FormatError, userInput);
                 throw;
             }
-        }
-
-        private static string[] SplitStrings(string stringToFilter, char[] filter)
-        {
-            var splittedString = stringToFilter.Split(filter).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-            return splittedString;
         }
     }
 }
