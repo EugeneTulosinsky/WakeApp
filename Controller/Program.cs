@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Xml;
     using System.Xml.Linq;
 
@@ -9,8 +10,8 @@
 
     public sealed class Program
     {
-
         private static string filePath;
+        private static char[] filterOptions = { '/', '<', '>' };
 
 
         private static void Main(string[] args)
@@ -32,7 +33,8 @@
             }
             else
             {
-                Console.WriteLine();
+                Console.WriteLine($"Ankunftszeit: {model.Arrival} \nReisezeit in Minuten: {model.PrepTimeInMin} Min\nVorbereitungszeit in Minuten: {model.TravelTimeInMin} Min\nEingeplante Verzögerzungen in Minuten: {model.Delay} Min\nWakeTime: {model.WakeTime}");
+                Console.ReadKey();
             }
 
         }
@@ -101,14 +103,17 @@
             XmlDocument document = new XmlDocument();
             document.Load(filePath);
 
+            XmlElement element = document.DocumentElement;
+            var xmlData = SplitStrings(element?.InnerXml, filterOptions);
+
 
             Model model = new Model()
             {
-                Arrival = FormatDateTime(document.Attributes["Arrival"]?.InnerText),
-                TravelTimeInMin = ConvertStringToInt(document.Attributes["TravelTime"]?.InnerText),
-                PrepTimeInMin = ConvertStringToInt(document.Attributes["PrepTime"]?.InnerText),
-                Delay = ConvertStringToInt(document.Attributes["Delay"]?.InnerText),
-                WakeTime = FormatDateTime(document.Attributes["WakeTime"]?.InnerText)
+                Arrival = FormatDateTime(xmlData[1]),
+                TravelTimeInMin = ConvertStringToInt(xmlData[4]),
+                PrepTimeInMin = ConvertStringToInt(xmlData[7]),
+                Delay = ConvertStringToInt(xmlData[10]),
+                WakeTime = FormatDateTime(xmlData[13])
             };
 
             return model;
@@ -226,6 +231,12 @@
                 Console.WriteLine(CustomString.FormatError, userInput);
                 throw;
             }
+        }
+
+        private static string[] SplitStrings(string stringToFilter, char[] filter)
+        {
+            var splittedString = stringToFilter.Split(filter).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+            return splittedString;
         }
     }
 }

@@ -10,7 +10,7 @@
 
         public const string NotFound = "Es konnten keine Standartwerte eingelesen werden. Alle Werte werden auf Null gesetzt.";
 
-        public const string ArrivalTime = "Geben Sie ihre gewünschte Ankunftszeit/ZielZeit ein (hh:mm)";
+        public const string ArrivalTime = "Geben Sie ihre gewünschte Ankunftszeit/ZielZeit ein (yyyy-mm-dd-hh:mm, bsp: 2022-09-24-08:30)";
 
         public const string TravelTime = "Wie lange brauchen Sie für Ihren normalen Fahrtweg? (in Minuten)";
 

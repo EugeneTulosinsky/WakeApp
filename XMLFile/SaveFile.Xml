@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<metadata>
-	<Model>
-		<Arrival></Arrival>
-		<TravelTime></TravelTime>
-		<PrepTime></PrepTime>
-		<Delay></Delay>
-		<WakeTime></WakeTime>
-	</Model>
-</metadata>
+<Model>
+	<Arrival>2022-09-24-08:30</Arrival>
+	<TravelTime>60</TravelTime>
+	<PrepTime>60</PrepTime>
+	<Delay>30</Delay>
+	<WakeTime>2022-09-24-06:00</WakeTime>
+</Model>
