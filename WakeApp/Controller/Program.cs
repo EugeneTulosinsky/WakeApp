@@ -2,7 +2,6 @@
 {
     using System;
     using System.IO;
-    using System.Reflection;
     using System.Xml;
     using System.Xml.Linq;
 
@@ -10,16 +9,13 @@
 
     public sealed class Program
     {
-        private static string myPath;
-        private static string fileDir;
+
         private static string filePath;
 
 
         private static void Main(string[] args)
         {
-            myPath = Assembly.GetEntryAssembly().Location;
-            fileDir = Path.GetDirectoryName(myPath);
-            filePath = Path.Combine(fileDir, "SaveFile.Xml");
+            filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "XMLFile\\SaveFile.Xml");
 
             Console.WriteLine(CustomString.Start);
             Console.WriteLine(CustomString.Space);
@@ -103,7 +99,7 @@
         private static Model LoadModel()
         {
             XmlDocument document = new XmlDocument();
-            document.LoadXml(filePath);
+            document.Load(filePath);
 
 
             Model model = new Model()
@@ -112,7 +108,7 @@
                 TravelTimeInMin = ConvertStringToInt(document.Attributes["TravelTime"]?.InnerText),
                 PrepTimeInMin = ConvertStringToInt(document.Attributes["PrepTime"]?.InnerText),
                 Delay = ConvertStringToInt(document.Attributes["Delay"]?.InnerText),
-                WakeTime = FormatDateTime(document.Attributes["WakeTime"]?.InnerText),
+                WakeTime = FormatDateTime(document.Attributes["WakeTime"]?.InnerText)
             };
 
             return model;
