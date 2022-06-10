@@ -189,12 +189,12 @@
 
         private static DateTime FormatDateTime(string dateTimeString)
         {
-            DateTime formatedDate;
-
             try
             {
-                formatedDate = Convert.ToDateTime(dateTimeString).ToLocalTime();
-                return formatedDate;
+                DateTime formattedDate;
+
+                formattedDate = Convert.ToDateTime(dateTimeString).ToLocalTime();
+                return formattedDate;
             }
             catch (FormatException)
             {
