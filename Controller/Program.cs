@@ -15,21 +15,37 @@
         {
             filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "XMLFile\\SaveFile.Xml");
 
-            Console.WriteLine(CustomString.Start);
-            Console.WriteLine(CustomString.Space);
-            Console.WriteLine(CustomString.GetValues);
-
-            Model model = LoadModel();
-
-            Console.WriteLine($"Ankunftszeit: {model.Arrival} \nReisezeit in Minuten: {model.PrepTimeInMin} Min\nVorbereitungszeit in Minuten: {model.TravelTimeInMin} Min\nEingeplante Verzögerzungen in Minuten: {model.Delay} Min\nWakeTime: {model.WakeTime}");
-
-            if (YesOrNo(CustomString.Correct))
+            while (true)
             {
-                Order();
+                Console.Clear();
+                Console.WriteLine(CustomString.Start);
+                Console.WriteLine(CustomString.Space);
+                Console.WriteLine(CustomString.GetValues);
+
+                Model model = LoadModel();
+
+                Console.WriteLine(CustomString.NewData);
+                Console.WriteLine($"Ankunftszeit: {model.Arrival} \nReisezeit in Minuten: {model.PrepTimeInMin} Min\nVorbereitungszeit in Minuten: {model.TravelTimeInMin} Min\nEingeplante Verzögerzungen in Minuten: {model.Delay} Min\nWakeTime: {model.WakeTime}");
+
+                if (YesOrNo(CustomString.Correct))
+                {
+                    Order();
+
+                    Console.Clear();
+                }
+
+                model = LoadModel();
+
+                Console.WriteLine(CustomString.NewData);
+                Console.WriteLine($"Ankunftszeit: {model.Arrival} \nReisezeit in Minuten: {model.PrepTimeInMin} Min\nVorbereitungszeit in Minuten: {model.TravelTimeInMin} Min\nEingeplante Verzögerzungen in Minuten: {model.Delay} Min\nWakeTime: {model.WakeTime}");
+
+                if (!YesOrNo(CustomString.Continue))
+                {
+                    Console.WriteLine(CustomString.ThankYou);
+                    Console.ReadKey();
+                    Environment.Exit(0);
+                }
             }
-            
-            Console.WriteLine(CustomString.ThankYou);
-            Console.ReadKey();
         }
 
         private static void Order()
@@ -46,6 +62,8 @@
             {
                 var delay = GetDelayTime();
                 FillModel(arrival, travelTime, prepTime, true, delay);
+
+                return;
             }
 
             FillModel(arrival, travelTime, prepTime);

@@ -20,6 +20,8 @@
 
         public const string Delay = "Wollen Sie noch zusätzliche Zeit einplanen? Y/N";
 
+        public const string Continue = "Wollen Sie das Programm fortführen? Y/N";
+
         public const string DelayTime = "Wie viel zusätzliche Zeit benötigen Sie? (in Minuten)";
 
         public const string FormatError = "Eingabe kann nicht formatiert werden, falsches Format!";
@@ -27,5 +29,7 @@
         public const string ThankYou = "Danke für die Benutzung der WakeApp";
 
         public const string Save = "Erfolgreich gespeichert.";
+
+        public const string NewData = "Ihre gespeicherten Daten:\n";
     }
 }

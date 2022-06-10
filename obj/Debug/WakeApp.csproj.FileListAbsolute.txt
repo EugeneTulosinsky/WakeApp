@@ -22,3 +22,11 @@ D:\Projects\allinsight\Venture\WakeApp\obj\Debug\WakeApp.csproj.SuggestedBinding
 D:\Projects\allinsight\Venture\WakeApp\obj\Debug\WakeApp.csproj.CoreCompileInputs.cache
 D:\Projects\allinsight\Venture\WakeApp\obj\Debug\WakeApp.exe
 D:\Projects\allinsight\Venture\WakeApp\obj\Debug\WakeApp.pdb
+C:\School Projects\WakeApp\bin\Debug\WakeApp.exe.config
+C:\School Projects\WakeApp\bin\Debug\WakeApp.exe
+C:\School Projects\WakeApp\bin\Debug\WakeApp.pdb
+C:\School Projects\WakeApp\obj\Debug\WakeApp.csproj.AssemblyReference.cache
+C:\School Projects\WakeApp\obj\Debug\WakeApp.csproj.SuggestedBindingRedirects.cache
+C:\School Projects\WakeApp\obj\Debug\WakeApp.csproj.CoreCompileInputs.cache
+C:\School Projects\WakeApp\obj\Debug\WakeApp.exe
+C:\School Projects\WakeApp\obj\Debug\WakeApp.pdb
