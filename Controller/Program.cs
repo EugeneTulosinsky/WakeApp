@@ -209,9 +209,8 @@
         {
             try
             {
-                DateTime formattedDate;
-
-                formattedDate = Convert.ToDateTime(dateTimeString).ToLocalTime();
+                DateTime formattedDate = new DateTime();
+                formattedDate = DateTime.Parse(dateTimeString).ToUniversalTime();
                 return formattedDate;
             }
             catch (FormatException)
